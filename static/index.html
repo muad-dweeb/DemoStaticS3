@@ -46,6 +46,18 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+    .spin {
+      display: inline-block;
+      animation: spin 1s ease-in-out forwards;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
@@ -57,7 +69,7 @@
     // JavaScript to handle the click event
     document.getElementById('clickableText').addEventListener('click', function () {
       this.textContent = 'Because it was written in Jawa-Script';
-      this.classList.add('rainbow');
+      this.classList.add('rainbow', 'spin');
     });
   </script>
   </div>
