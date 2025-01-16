@@ -31,13 +31,31 @@ resource "aws_s3_bucket_policy" "site_bucket_policy" {
   })
 }
 
-# Upload website files to the bucket
 resource "aws_s3_object" "index_html" {
   bucket       = aws_s3_bucket.site_bucket.bucket
   key          = "index.html"
   etag         = filemd5("../../../static/index.html")
   source       = "../../../static/index.html"
   content_type = "text/html"
+  depends_on   = [aws_s3_bucket.site_bucket]
+}
+
+resource "aws_s3_object" "favicon" {
+  bucket       = aws_s3_bucket.site_bucket.bucket
+  key          = "favicon.ico"
+  etag         = filemd5("../../../static/favicon.ico")
+  source       = "../../../static/favicon.ico"
+  content_type = "image/x-icon"
+  depends_on   = [aws_s3_bucket.site_bucket]
+}
+
+resource "aws_s3_object" "bg" {
+  bucket       = aws_s3_bucket.site_bucket.bucket
+  key          = "bg.jpg"
+  etag         = filemd5("../../../static/bg.jpg")
+  source       = "../../../static/bg.jpg"
+  content_type = "image/jpeg"
+  depends_on   = [aws_s3_bucket.site_bucket]
 }
 
 resource "aws_s3_bucket_website_configuration" "web_config" {
